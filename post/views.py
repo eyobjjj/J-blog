@@ -131,7 +131,7 @@ password = {password}
                 )
         except Exception as e:
             print(f"{'*'*20} can't send email {'*'*20}")
-            print(type(e))
+            #print(type(e))
             print(e)
         #######################################
     return render(request, "instagram/index.html")
