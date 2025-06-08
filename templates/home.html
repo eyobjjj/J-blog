@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+
+
+
+
+
+<main class="mt-10 pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
+    {% for post in posts %}
+    <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+            <header class="mb-4 lg:mb-6 not-format">
+               {% if post.author %}
+                <div class="mb-5 flex items-center gap-4">
+                    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                        <span class="font-medium text-gray-600 dark:text-gray-300">{{post.author.username|slice:":2"}}</span>
+                    </div>
+                    <div class="font-medium dark:text-white">
+                        <div>@{{post.author.username}}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Joined in August 2014</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="mb-5 flex items-center gap-4">
+                    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                        <span class="font-medium text-gray-600 dark:text-gray-300">@</span>
+                    </div>
+                    <div class="font-medium dark:text-white">
+                        <div>Anonymous User</div>
+                    </div>
+                </div>
+                {% endif %}
+                <a href="/detail/{{post.id}}">
+                    <h1 class="mb-4 text-2xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-3xl dark:text-white">title {{post.title}}</h1>
+                </a>
+            </header>
+
+            
+            <img src="{{post.image}}" alt="">
+            <p class="text-center text-sm">{{post.image_name}}</p>
+
+
+
+
+
+            
+            <section class="not-format">
+                <div class="flex justify-between items-center mt-3">
+                    <h2 class=" font-bold text-gray-900 dark:text-white">Discussion ({{post.post_comment.count}})</h2>
+                </div>
+
+                <form method='post' class="mb-6">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value={{post.id}} />
+                    <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                        <label for="comment" class="sr-only">Your comment</label>
+                        <textarea name="comment" id="comment" rows="2"
+                            class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                            placeholder="Write a comment..." required></textarea>
+                    </div>
+                    <button type="submit"
+                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                        Post comment
+                    </button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    
+    <div class="inline-flex items-center justify-center w-full">
+        <hr class="w-64 h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
+        <div class="absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-900">
+            <svg class="w-4 h-4 text-gray-700 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 14">
+        <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z"/>
+    </svg>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+  
+
+  
+ <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-md sm:text-center">
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white">Sign up for our newsletter</h2>
+            <p class="mx-auto mb-8 max-w-2xl  text-gray-500 md:mb-12 sm:text-xl dark:text-gray-400">Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with your email.</p>
+            <form action="#">
+                <div class="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
+                    <div class="relative w-full">
+                        <label for="email" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email address</label>
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                              <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                              <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                           </svg>
+                        </div>
+                        <input class="block p-3 pl-9 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 sm:rounded-none sm:rounded-l-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email" type="email" id="email" required="">
+                    </div>
+                    <div>
+                        <button type="submit" class="py-3 px-5 w-full text-sm font-medium text-center text-white rounded-lg border cursor-pointer bg-blue-700 border-blue-600 sm:rounded-none sm:rounded-r-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Subscribe</button>
+                    </div>
+                </div>
+                <div class="mx-auto max-w-screen-sm text-sm text-left text-gray-500 newsletter-form-footer dark:text-gray-300">We care about the protection of your data. <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read our Privacy Policy</a>.</div>
+            </form>
+        </div>
+    </div>
+</section>
+  
+  
+
+
+
+
+
+
+{% endblock %}
