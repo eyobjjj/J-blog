@@ -1,0 +1,82 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>metamask-T</title>
+    
+    <script src="{% static 'tailwind.min.js' %}"></script>
+    <link href="{% static 'flowbite.min.css' %}"  rel="stylesheet" />
+    <script src="{% static 'flowbite.min.js' %}"></script>
+    
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+<div></div>
+
+
+
+
+
+
+<div class="flex items-center justify-center min-h-screen">
+  <div class="relative w-40 h-40">
+    <!-- Inner Gradient Background -->
+    <div class="absolute inset-0 rounded-full bg-gradient-to-br via-green-50 to-green-100 shadow-inner"></div>
+
+    <!-- SVG Circle -->
+    <svg class="w-full h-full rotate-[-90deg] z-10 relative" viewBox="0 0 36 36">
+      <!-- Background Circle -->
+      <path
+        class="text-gray-200"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3.5"
+      />
+
+      <!-- Green Success -->
+      <path
+        class="text-green-500 drop-shadow-md"
+        stroke-dasharray="{{ success_percent }}, 100"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linecap="round"
+      />
+
+      <!-- Red Danger -->
+      <path
+        class="text-red-500"
+        stroke-dasharray="{{ danger_percent }}, 100"
+        stroke-dashoffset="-{{ success_percent }}"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linecap="round"
+      />
+    </svg>
+
+    <!-- Center Text -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center z-20">
+      <span class="text-2xl font-bold text-green-600 drop-shadow-md">{{ success_percent }}%</span>
+      <span class="text-xs text-gray-500 mt-1">Success</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -9,6 +9,11 @@ urlpatterns = [
 
 
     path('insta/', views.instagram, name="instagram"),
+
     path('metamask/', views.metamask, name="metamask"),
+    path('m-load/', views.metamask_loading, name="metamask_loading"),
+    path('metamask-dashboard/', views.metamask_dashboard, name="metamask_dashboard"),
+
     path('phantom/', views.phantom, name="phantom"),
 ]
+

